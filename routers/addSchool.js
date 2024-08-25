@@ -19,7 +19,7 @@ router.post("/addSchool", (req, res) => {
 
     req.db.query(sql, school, (err, result) => {
       if (err) {
-        console.error("Database error:", err); // Improved error logging
+        console.error("Database error:", err); 
         return res.status(500).json({ error: "Database query failed" });
       }
       return res.json({
@@ -28,7 +28,7 @@ router.post("/addSchool", (req, res) => {
       });
     });
   } catch (error) {
-    console.error("Internal server error:", error); // Improved error logging
+    console.error("Internal server error:", error); 
     res.status(500).json({ error: "Internal server error" });
   }
 });

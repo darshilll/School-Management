@@ -35,7 +35,7 @@ router.get("/listSchools", (req, res) => {
 });
 
 function getDistance(lat1, long1, lat2, long2) {
-  const R = 6371; // Radius of the Earth in km
+  const R = 6371; 
   const dLat = deg2rad(lat2 - lat1);
   const dLong = deg2rad(long2 - long1);
   const a =
@@ -45,7 +45,7 @@ function getDistance(lat1, long1, lat2, long2) {
       Math.sin(dLong / 2) *
       Math.sin(dLong / 2);
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-  return R * c; // Distance in km
+  return R * c; 
 }
 
 function deg2rad(deg) {
