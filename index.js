@@ -3,7 +3,7 @@ import mysql from "mysql2";
 import bodyParser from "body-parser";
 import addSchool from "./routers/addSchool.js";
 import listSchools from "./routers/listSchools.js";
-import allSchools from "./routers/allSchools.js";
+
 
 const PORT = 5500;
 
@@ -26,7 +26,14 @@ db.connect((err) => {
   console.log("MySQL Connected...");
 });
 
-app.use(allSchools);
+app.get("/", (req, res) => {
+     const sql = "SELECT * FROM schools";
+     req.app.get("db").query(sql, (err, data) => {
+       if (err) return res.json("error");
+       return res.json(data);
+     });
+   });
+
 app.use(addSchool);
 app.use(listSchools);
 
