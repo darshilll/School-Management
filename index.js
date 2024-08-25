@@ -1,6 +1,5 @@
 import express from "express";
 import mysql from "mysql2";
-import bodyParser from "body-parser";
 import addSchool from "./routers/addSchool.js";
 import listSchools from "./routers/listSchools.js";
 import dotenv from "dotenv"
@@ -9,7 +8,7 @@ dotenv.config();
 const PORT = process.env.PORT || 5500;
 
 const app = express();
-app.use(bodyParser.json());
+app.use(express.json());
 
 //MYSQL CONNECTION
 const db = mysql.createConnection({
@@ -28,7 +27,7 @@ db.connect((err) => {
 });
 
 app.get("/", (req, res) => {
-     const sql = "SELECT * FROM schools";
+     const sql = "SELECT * FROM school";
      req.app.get("db").query(sql, (err, data) => {
        if (err) return res.json("error");
        return res.json(data);

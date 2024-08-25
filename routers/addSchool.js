@@ -15,7 +15,7 @@ router.post("/addSchool", (req, res) => {
     }
 
     const school = { name, address, latitude, longitude };
-    const sql = "INSERT INTO schools SET ?";
+    const sql = "INSERT INTO school SET ?";
 
     req.app.get("db").query(sql, school, (err, result) => {
       if (err) return res.json("error");

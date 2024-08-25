@@ -10,7 +10,7 @@ router.get("/listSchools", (req, res) => {
       return res.status(400).json({ error: "Invalid coordinates" });
     }
 
-    const sql = "SELECT * FROM schools";
+    const sql = "SELECT * FROM school";
 
     req.app.get("db").query(sql, (err, results) => {
       if (err) throw err;
