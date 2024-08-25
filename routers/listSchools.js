@@ -1,33 +1,37 @@
 import express from "express";
 const router = express.Router();
 
-router.get("/listSchools",(req, res) => {
-  const userLat = parseFloat(req.query.latitude);
-  const userLong = parseFloat(req.query.longitude);
+router.get("/listSchools", (req, res) => {
+  try {
+    const userLat = parseFloat(req.query.latitude);
+    const userLong = parseFloat(req.query.longitude);
 
-  if (isNaN(userLat) || isNaN(userLong)) {
-    return res.status(400).json({ error: "Invalid coordinates" });
-  }
+    if (isNaN(userLat) || isNaN(userLong)) {
+      return res.status(400).json({ error: "Invalid coordinates" });
+    }
 
-  const sql = "SELECT * FROM schools";
+    const sql = "SELECT * FROM schools";
 
-  req.app.get('db').query(sql, (err, results) => {
-    if (err) throw err;
+    req.app.get("db").query(sql, (err, results) => {
+      if (err) throw err;
 
+      results.forEach((school) => {
+        school.distance = getDistance(
+          userLat,
+          userLong,
+          school.latitude,
+          school.longitude
+        );
+      });
 
-    results.forEach((school) => {
-      school.distance = getDistance(
-        userLat,
-        userLong,
-        school.latitude,
-        school.longitude
-      );
+      results.sort((a, b) => a.distance - b.distance);
+
+      res.json(results);
     });
-
-    results.sort((a, b) => a.distance - b.distance);
-
-    res.json(results);
-  });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Interal server error" });
+  }
 });
 
 function getDistance(lat1, long1, lat2, long2) {
