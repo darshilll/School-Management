@@ -12,7 +12,7 @@ router.get("/listSchools", (req, res) => {
 
     const sql = "SELECT * FROM school";
 
-    req.app.get("db").query(sql, (err, results) => {
+    req.db.query(sql, (err, results) => {
       if (err) throw err;
 
       results.forEach((school) => {
