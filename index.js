@@ -5,14 +5,14 @@ import addSchool from "./routers/addSchool.js";
 import listSchools from "./routers/listSchools.js";
 
 
-const PORT = 5500;
+const PORT = 3306;
 
 const app = express();
 app.use(bodyParser.json());
 
 //MYSQL CONNECTION
 const db = mysql.createConnection({
-  host: "localhost",
+  host: "127.0.0.1",
   user: "root",
   password: "darshil1234",
   database: "school",
