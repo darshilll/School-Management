@@ -5,7 +5,7 @@ import addSchool from "./routers/addSchool.js";
 import listSchools from "./routers/listSchools.js";
 
 
-const PORT = 3306;
+const PORT = 5500;
 
 const app = express();
 app.use(bodyParser.json());
