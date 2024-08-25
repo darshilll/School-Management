@@ -17,16 +17,19 @@ router.post("/addSchool", (req, res) => {
     const school = { name, address, latitude, longitude };
     const sql = "INSERT INTO school SET ?";
 
-    req.app.get("db").query(sql, school, (err, result) => {
-      if (err) return res.json("error");
+    req.db.query(sql, school, (err, result) => {
+      if (err) {
+        console.error("Database error:", err); // Improved error logging
+        return res.status(500).json({ error: "Database query failed" });
+      }
       return res.json({
         message: "School added successfully",
         id: result.insertId,
       });
     });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Interal server error" });
+    console.error("Internal server error:", error); // Improved error logging
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
