@@ -3,19 +3,20 @@ import mysql from "mysql2";
 import bodyParser from "body-parser";
 import addSchool from "./routers/addSchool.js";
 import listSchools from "./routers/listSchools.js";
+import dotenv from "dotenv"
 
-
-const PORT = 5500;
+dotenv.config();
+const PORT = process.env.PORT || 5500;
 
 const app = express();
 app.use(bodyParser.json());
 
 //MYSQL CONNECTION
 const db = mysql.createConnection({
-  host: "127.0.0.1",
-  user: "root",
-  password: "darshil1234",
-  database: "school",
+     host: process.env.DB_HOST,
+     user: process.env.DB_USER,
+     password: process.env.DB_PASSWORD,
+     database: process.env.DB_NAME
 });
 
 db.connect((err) => {
